@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "607052678170",
+    "project_id": "calendar-tspk",
+    "storage_bucket": "calendar-tspk.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:607052678170:android:5c4bf0f8a233e4bf34fda3",
+        "android_client_info": {
+          "package_name": "com.appninjas.eventscalendartspc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "607052678170-id8qcba8h0ceogc2kugh3n4hep8hcsfj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCv2KXKwILzUv0jAFhEwnAyxnFfNH7XSvY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "607052678170-id8qcba8h0ceogc2kugh3n4hep8hcsfj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
