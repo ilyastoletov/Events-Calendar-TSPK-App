@@ -5,19 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.appninjas.domain.model.User
 import com.appninjas.eventscalendartspc.R
 import com.appninjas.eventscalendartspc.databinding.FragmentRegistrationBinding
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 
 
 class RegistrationFragment : Fragment() {
 
     private lateinit var binding: FragmentRegistrationBinding
+    private val viewModel by viewModels<RegistrationViewModel>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentRegistrationBinding.inflate(inflater, container, false)
@@ -39,7 +39,8 @@ class RegistrationFragment : Fragment() {
         }
     }
 
-    private fun initUI() {}
+    private fun initUI() {
+    }
 
     private fun validateCredentials(): Boolean {
         val inputFullName = binding.fullNameEditText.text.toString()
@@ -59,30 +60,14 @@ class RegistrationFragment : Fragment() {
     }
 
     private fun registerUser(user: User) {
-        val firebaseAuth = Firebase.auth
-        val firebaseDb = Firebase.firestore
-
-        firebaseAuth.createUserWithEmailAndPassword(user.email, user.password)
-            .addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                val user: HashMap<String, String> = hashMapOf(
-                    "fullName" to user.fullName,
-                    "email" to user.email,
-                    "password" to user.password
-                )
-
-                firebaseDb.collection("users")
-                    .add(user)
-                    .addOnCompleteListener {
-                        toast("Вы успешно зарегестрировались!")
-                        findNavController().navigate(R.id.loginFragment2)
-                    }
-                    .addOnFailureListener { e -> toast("Произошла ошибка при регистрации $e") }
-            } else {
-                toast("Произошла ошибка базы данных при регистрации")
-            }
+        val registerSuccess = {
+            toast("Вы успешно зарегестрировались!")
+            findNavController().navigate(R.id.loginFragment2)
         }
-
+        val registerFail = {
+            toast("Произошла ошибка базы данных при регистрации")
+        }
+        viewModel.registerUser(user, registerSuccess, registerFail)
     }
 
     private fun toast(text: String) {
