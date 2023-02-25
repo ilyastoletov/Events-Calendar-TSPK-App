@@ -30,10 +30,10 @@ class EventsAdapter(private val eventsList: List<Event>,
             }
             if(listener != null) {
                 binding.eventBtnAddToVisited.setOnClickListener {
-                    listener?.onAddEventBtnClick(model)
+                    listener.onAddEventBtnClick(model)
                 }
                 binding.adminBtnEndEvent.setOnClickListener {
-                    listener?.onEndEventBtnClick(model)
+                    listener.onEndEventBtnClick(model)
                 }
             }
         }

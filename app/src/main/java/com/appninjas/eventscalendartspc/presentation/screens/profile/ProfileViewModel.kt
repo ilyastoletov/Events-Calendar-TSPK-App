@@ -40,7 +40,8 @@ class ProfileViewModel(application: Application): ViewModel() {
 
     fun getEventsFromStorage() {
         viewModelScope.launch(Dispatchers.IO) {
-            _eventsList.postValue(getEventsFromStorageUseCase.invoke())
+            val result = getEventsFromStorageUseCase.invoke()
+            _eventsList.postValue(result)
         }
     }
 

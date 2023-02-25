@@ -48,14 +48,17 @@ class MainFragment : Fragment() {
             viewModel.eventsList.observe(viewLifecycleOwner) { eventsMap ->
                 binding.incomingEventsTextView.text = "Предстоящие (${eventsMap["active"]?.size})"
                 binding.endedEventsTextView.text = "Завершенные (${eventsMap["ended"]?.size})"
+                val activityNavView: NavigationView =
+                    activity.findViewById(R.id.main_fragment_nav_menu)
                 if (user.isAdmin) {
-                    val activityNavView: NavigationView =
-                        activity.findViewById(R.id.main_fragment_nav_menu)
                     activityNavView.menu.clear()
                     activityNavView.inflateMenu(R.menu.admin_nav_menu)
                     activityNavView.setCheckedItem(R.id.nav_menu_btn)
                     initializeEventsRv(true, eventsMap)
                 } else {
+                    activityNavView.menu.clear()
+                    activityNavView.inflateMenu(R.menu.navigation_menu)
+                    activityNavView.setCheckedItem(R.id.nav_menu_btn)
                     initializeEventsRv(false, eventsMap)
                 }
             }
@@ -67,11 +70,11 @@ class MainFragment : Fragment() {
         val adapterEnded = EventsAdapter(eventsMap["ended"]!!, isUserAdmin, listener = onAddButtonClickListener)
         binding.incomingEventsRv.apply {
             adapter = adapterActive
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
         binding.endedEventsRv.apply {
             adapter = adapterEnded
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
     }
 
