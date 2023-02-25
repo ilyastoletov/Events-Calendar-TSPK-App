@@ -27,18 +27,23 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initUI()
-        binding.btnLogin.setOnClickListener {
-            val emailField = binding.emailLoginEditText.text.toString()
-            val passField = binding.passwordLoginEditText.text.toString()
+    }
+
+    private fun initUI() {
+        val activity: AppCompatActivity = requireActivity() as AppCompatActivity
+        activity.supportActionBar?.hide()
+        binding.loginBtn.setOnClickListener {
+            val emailField = binding.loginEmailEditText.text.toString()
+            val passField = binding.loginPasswordEditText.text.toString()
             if(emailField.isNotEmpty() && passField.isNotEmpty()) {
                 loginUser(User(email = emailField, password = passField))
             } else {
                 Toast.makeText(context, "Заполните все поля", Toast.LENGTH_SHORT).show()
             }
         }
-    }
-
-    private fun initUI() {
+        binding.registerFromLoginFragment.setOnClickListener {
+            findNavController().navigate(R.id.registrationFragment)
+        }
     }
 
     private fun loginUser(user: User) {

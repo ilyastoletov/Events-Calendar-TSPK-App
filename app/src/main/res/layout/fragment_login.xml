@@ -1,60 +1,101 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8" ?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.screens.registration.RegistrationFragment">
+    tools:context=".presentation.screens.login.LoginFragment">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="464dp"
-        android:layout_gravity="center"
-        android:orientation="vertical">
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="@id/guideline_vert_start"
+        app:layout_constraintEnd_toEndOf="@id/guideline_vert_end"
+        app:layout_constraintTop_toTopOf="@id/guideline_hor_start"
+        app:layout_constraintBottom_toBottomOf="@id/guideline_hor_end">
 
         <TextView
-            android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="top"
             android:text="Вход"
             android:textColor="@color/black"
-            android:textSize="55sp"
-            android:textStyle="bold" />
+            android:textSize="40sp"
+            android:fontFamily="@font/bold"
+            android:layout_margin="10dp"/>
 
         <EditText
-            android:id="@+id/email_login_edit_text"
+            android:id="@+id/login_email_editText"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="Электронная почта" />
+            android:inputType="textEmailAddress"
+            android:hint="Электронная почта"/>
 
         <EditText
-            android:id="@+id/password_login_edit_text"
+            android:id="@+id/login_password_editText"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="Пароль" />
+            android:inputType="textPassword"
+            android:hint="Пароль"/>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/login_btn"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            app:cardBackgroundColor="@color/main_brand_color"
+            android:layout_marginTop="10dp"
+            app:cardCornerRadius="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:text="Войти"
+                android:textColor="@color/white"
+                android:fontFamily="@font/bold"
+                android:layout_gravity="center"/>
+
+        </com.google.android.material.card.MaterialCardView>
 
         <TextView
-            android:id="@+id/registrationText"
-            android:layout_width="231dp"
-            android:layout_height="40dp"
+            android:id="@+id/register_from_login_fragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="@string/registration"
-            android:textColor="#2D7097"
-            android:textSize="17sp" />
-
-        <TextView
-            android:id="@+id/editPassword"
-            android:layout_width="231dp"
-            android:layout_height="40dp"
-            android:text="@string/passwordEdit"
-            android:textColor="#2D7097"
-            android:textSize="17sp" />
-
-        <Button
-            android:id="@+id/btn_login"
-            android:layout_width="120dp"
-            android:layout_height="50dp"
-            android:text="Войти" />
+            android:textColor="@color/main_brand_color"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="5dp"
+            android:textSize="14sp"
+            android:fontFamily="@font/medium"/>
 
     </LinearLayout>
 
-</FrameLayout>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_vert_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_vert_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_hor_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_hor_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.8" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

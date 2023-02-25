@@ -16,6 +16,12 @@
         <action
             android:id="@+id/action_mainFragment_to_registrationFragment"
             app:destination="@id/registrationFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_adminFragment"
+            app:destination="@id/adminFragment" />
     </fragment>
     <fragment
         android:id="@+id/registrationFragment"
@@ -26,4 +32,14 @@
         android:id="@+id/loginFragment2"
         android:name="com.appninjas.eventscalendartspc.presentation.screens.login.LoginFragment"
         android:label="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.appninjas.eventscalendartspc.presentation.screens.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/adminFragment"
+        android:name="com.appninjas.eventscalendartspc.presentation.screens.admin.AdminFragment"
+        android:label="fragment_admin"
+        tools:layout="@layout/fragment_admin" />
 </navigation>

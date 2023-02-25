@@ -27,7 +27,12 @@ class RegistrationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initUI()
-        binding.buttonRegSubmit.setOnClickListener {
+    }
+
+    private fun initUI() {
+        val activity: AppCompatActivity = requireActivity() as AppCompatActivity
+        activity.supportActionBar?.hide()
+        binding.registerBtn.setOnClickListener {
             val validationResult = validateCredentials()
             if (validationResult) {
                 registerUser(User(
@@ -37,9 +42,9 @@ class RegistrationFragment : Fragment() {
                 ))
             }
         }
-    }
-
-    private fun initUI() {
+        binding.loginFromRegFragment.setOnClickListener {
+            findNavController().navigate(R.id.loginFragment2)
+        }
     }
 
     private fun validateCredentials(): Boolean {

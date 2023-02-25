@@ -8,14 +8,34 @@ import com.appninjas.domain.model.Event
 import com.appninjas.eventscalendartspc.databinding.EventItemBinding
 import com.squareup.picasso.Picasso
 
-class EventsAdapter(private val eventsList: List<Event>): RecyclerView.Adapter<EventsAdapter.Holder>() {
+class EventsAdapter(private val eventsList: List<Event>,
+                    private val userAdmin: Boolean,
+                    private val fromProfile: Boolean = false,
+                    private val listener: EventClickListener?): RecyclerView.Adapter<EventsAdapter.Holder>() {
 
     inner class Holder(val binding: EventItemBinding, view: View): RecyclerView.ViewHolder(view) {
         fun bind(model: Event) {
             Picasso.get().load(model.eventPictureUrl).into(binding.eventPicture)
-            binding.eventHeading.text = model.eventName
-            binding.eventDescription.text = model.eventDescription
-            binding.eventInformation.text = "${model.date} • ${model.category} • ${model.status}"
+            with(binding) {
+                eventHeading.text = model.eventName
+                eventDescription.text = model.eventDescription
+                eventInformation.text = "${model.date} • ${model.category} • ${model.status}"
+                if (userAdmin) {
+                    adminBtnEndEvent.visibility = View.VISIBLE
+                }
+                if (fromProfile) {
+                    adminBtnEndEvent.visibility = View.GONE
+                    eventBtnAddToVisited.visibility = View.GONE
+                }
+            }
+            if(listener != null) {
+                binding.eventBtnAddToVisited.setOnClickListener {
+                    listener?.onAddEventBtnClick(model)
+                }
+                binding.adminBtnEndEvent.setOnClickListener {
+                    listener?.onEndEventBtnClick(model)
+                }
+            }
         }
     }
 
@@ -32,5 +52,10 @@ class EventsAdapter(private val eventsList: List<Event>): RecyclerView.Adapter<E
     }
 
     override fun getItemCount(): Int = eventsList.size
+
+    interface EventClickListener {
+        fun onAddEventBtnClick(model: Event)
+        fun onEndEventBtnClick(model: Event)
+    }
 
 }

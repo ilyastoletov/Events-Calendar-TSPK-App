@@ -1,8 +1,23 @@
 <resources>
     <string name="app_name">Events Calendar TSPC</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="login"><u>��� ���� �������? ����</u></string>
-    <string name="registration"><u>�����������</u></string>
-    <string name="passwordEdit"><u>�������������� ������</u></string>
+    <string name="login"><u>Уже есть аккаунт? Вход</u></string>
+    <string name="registration"><u>Регистрация</u></string>
+    <string name="open_navigation">Open navigation</string>
+    <string name="close_navigation">Close navigation</string>
+    <array name="categories_array">
+        <item>Выберите категорию</item>
+        <item>Студ. деят.</item>
+        <item>Городские акции</item>
+        <item>Внеуроч. деят.</item>
+        <item>Развлекательные</item>
+        <item>Гос. акции</item>
+        <item>КВН</item>
+        <item>Другое</item>
+    </array>
+    <array name="event_conditions">
+        <item>Выберите состояние</item>
+        <item>Не завершено</item>
+        <item>Завершено</item>
+    </array>
 </resources>

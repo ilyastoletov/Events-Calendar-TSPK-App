@@ -2,6 +2,7 @@
 <resources>
     <color name="main_brand_color">#2F87B8</color>
     <color name="secondary_brand_color">#3759B0</color>
+    <color name="grey_text_color">#9C9C9C</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>

@@ -2,7 +2,7 @@ package com.appninjas.eventscalendartspc.presentation.screens.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.appninjas.data.firebase.implementation.UserRepositoryImplementation
+import com.appninjas.data.repository.UserRepositoryImplementation
 import com.appninjas.domain.model.User
 import com.appninjas.domain.usecase.LoginUseCase
 import kotlinx.coroutines.Dispatchers
