@@ -14,16 +14,11 @@ import com.appninjas.eventscalendartspc.presentation.screens.main.MainViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class ProfileViewModel(application: Application): ViewModel() {
-
-    private val appContext = application.applicationContext
-
-    private val userRepoImpl = UserRepositoryImplementation()
-    private val eventsRepoImpl = EventRepositoryImpl(appContext)
-
-    private val getUserDataUseCase = GetUserDataUseCase(userRepoImpl)
-    private val getEventsFromStorageUseCase = GetEventsFromStorageUseCase(eventsRepoImpl)
-    private val logoutUseCase = LogoutUseCase(userRepoImpl)
+class ProfileViewModel(
+    private val getUserDataUseCase: GetUserDataUseCase,
+    private val getEventsFromStorageUseCase: GetEventsFromStorageUseCase,
+    private val logoutUseCase: LogoutUseCase
+    ): ViewModel() {
 
     private val _userData: MutableLiveData<User> = MutableLiveData()
     val userData: LiveData<User> = _userData
@@ -48,16 +43,6 @@ class ProfileViewModel(application: Application): ViewModel() {
     fun logoutUser() {
         viewModelScope.launch(Dispatchers.IO) {
             logoutUseCase.invoke()
-        }
-    }
-
-    companion object {
-        val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
-                val application =
-                    checkNotNull(extras[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY])
-                return ProfileViewModel(application) as T
-            }
         }
     }
 

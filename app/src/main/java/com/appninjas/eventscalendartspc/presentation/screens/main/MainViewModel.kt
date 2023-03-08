@@ -12,30 +12,18 @@ import com.appninjas.domain.usecase.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MainViewModel(application: Application): ViewModel() {
-
-    private val appContext: Context = application.applicationContext
-
-    private val userRepoImpl = UserRepositoryImplementation()
-    private val eventsRepoImpl = EventRepositoryImpl(appContext)
-
-    private val logoutUseCase = LogoutUseCase(userRepoImpl)
-    private val getUserDataUseCase = GetUserDataUseCase(userRepoImpl)
-    private val getEventsListUseCase = GetEventsListUseCase(eventsRepoImpl)
-    private val saveEventToStorageUseCase = SaveEventToStorageUseCase(eventsRepoImpl)
-    private val endEventUseCase = EndEventUseCase(eventsRepoImpl)
+class MainViewModel(
+    private val getUserDataUseCase: GetUserDataUseCase,
+    private val getEventsListUseCase: GetEventsListUseCase,
+    private val saveEventToStorageUseCase: SaveEventToStorageUseCase,
+    private val endEventUseCase: EndEventUseCase
+    ): ViewModel() {
 
     private val _userData: MutableLiveData<User> = MutableLiveData()
     val userData: LiveData<User> = _userData
 
     private val _eventsList: MutableLiveData<Map<String, List<Event>>> = MutableLiveData()
     val eventsList: LiveData<Map<String, List<Event>>> = _eventsList
-
-    fun logoutUser() {
-        viewModelScope.launch(Dispatchers.IO) {
-            logoutUseCase.invoke()
-        }
-    }
 
     fun getUserData() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -60,16 +48,6 @@ class MainViewModel(application: Application): ViewModel() {
     fun endEvent(event: Event) {
         viewModelScope.launch(Dispatchers.IO) {
             endEventUseCase.invoke(event)
-        }
-    }
-
-    companion object {
-        val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
-                val application =
-                    checkNotNull(extras[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY])
-                return MainViewModel(application) as T
-            }
         }
     }
 

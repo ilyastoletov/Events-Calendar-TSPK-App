@@ -5,17 +5,16 @@ import com.appninjas.data.mapper.EventMapper
 import com.appninjas.domain.model.Event
 import com.appninjas.domain.model.User
 import com.appninjas.domain.repository.UserRepository
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 
-class UserRepositoryImplementation: UserRepository {
+class UserRepositoryImplementation(
+    private val firebaseAuth: FirebaseAuth,
+    private val firebaseDb: FirebaseFirestore,
+    private val mapper: EventMapper
+    ): UserRepository {
 
-    private val firebaseAuth = Firebase.auth
-    private val firebaseDb = Firebase.firestore
-
-    private val mapper = EventMapper()
 
     override suspend fun registerUser(user: User, onSuccess: () -> Unit, onFailure: () -> Unit) {
         firebaseAuth.createUserWithEmailAndPassword(user.email, user.password)

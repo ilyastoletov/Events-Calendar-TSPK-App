@@ -12,26 +12,11 @@ import com.appninjas.domain.usecase.AddEventUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class AdminViewModel(application: Application): ViewModel() {
-
-    private val appContext: Context = application.applicationContext
-
-    private val eventsRepoImpl = EventRepositoryImpl(appContext)
-    private val addEventUseCase = AddEventUseCase(eventsRepoImpl)
+class AdminViewModel(private val addEventUseCase: AddEventUseCase): ViewModel() {
 
     fun addEvent(event: Event) {
         viewModelScope.launch(Dispatchers.IO) {
             addEventUseCase.invoke(event)
-        }
-    }
-
-    companion object {
-        val Factory: ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
-                val application =
-                    checkNotNull(extras[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY])
-                return AdminViewModel(application) as T
-            }
         }
     }
 

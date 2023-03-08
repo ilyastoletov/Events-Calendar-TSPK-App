@@ -8,11 +8,7 @@ import com.appninjas.domain.usecase.RegisterUserUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class RegistrationViewModel: ViewModel() {
-
-    private val userRepository = UserRepositoryImplementation()
-
-    private val registerUserUseCase = RegisterUserUseCase(userRepository)
+class RegistrationViewModel(private val registerUserUseCase: RegisterUserUseCase): ViewModel() {
 
     fun registerUser(user: User, onSuccess: () -> Unit, onFailure: () -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {

@@ -8,11 +8,7 @@ import com.appninjas.domain.usecase.LoginUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class LoginViewModel: ViewModel() {
-
-    private val userRepository = UserRepositoryImplementation()
-
-    private val loginUseCase = LoginUseCase(userRepository)
+class LoginViewModel(private val loginUseCase: LoginUseCase): ViewModel() {
 
     fun loginUser(user: User, onSuccess: () -> Unit, onFailure: () -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {

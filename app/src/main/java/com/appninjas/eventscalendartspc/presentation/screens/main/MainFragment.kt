@@ -14,15 +14,15 @@ import com.appninjas.domain.model.Event
 import com.appninjas.eventscalendartspc.R
 import com.appninjas.eventscalendartspc.databinding.FragmentMainBinding
 import com.appninjas.eventscalendartspc.presentation.adapters.EventsAdapter
+import com.appninjas.eventscalendartspc.presentation.screens.admin.AdminViewModel
 import com.google.android.material.navigation.NavigationView
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-// TODO(Слушатель нажатий на сохранение эвента) +
-// TODO(Админский функционал)
 class MainFragment : Fragment() {
 
     private lateinit var binding: FragmentMainBinding
-    private val viewModel: MainViewModel by viewModels { MainViewModel.Factory }
+    private val viewModel: MainViewModel by viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentMainBinding.inflate(inflater, container, false)

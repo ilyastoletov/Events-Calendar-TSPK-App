@@ -12,12 +12,14 @@ import androidx.navigation.fragment.findNavController
 import com.appninjas.domain.model.User
 import com.appninjas.eventscalendartspc.R
 import com.appninjas.eventscalendartspc.databinding.FragmentRegistrationBinding
+import com.appninjas.eventscalendartspc.presentation.screens.admin.AdminViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class RegistrationFragment : Fragment() {
 
     private lateinit var binding: FragmentRegistrationBinding
-    private val viewModel by viewModels<RegistrationViewModel>()
+    private val viewModel: RegistrationViewModel by viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentRegistrationBinding.inflate(inflater, container, false)

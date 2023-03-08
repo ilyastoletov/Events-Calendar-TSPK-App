@@ -16,11 +16,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.appninjas.eventscalendartspc.R
 import com.appninjas.eventscalendartspc.databinding.FragmentProfileBinding
 import com.appninjas.eventscalendartspc.presentation.adapters.EventsAdapter
+import com.appninjas.eventscalendartspc.presentation.screens.admin.AdminViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentProfileBinding
-    private val viewModel: ProfileViewModel by viewModels { ProfileViewModel.Factory }
+    private val viewModel: ProfileViewModel by viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentProfileBinding.inflate(inflater, container, false)

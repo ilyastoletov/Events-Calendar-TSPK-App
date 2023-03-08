@@ -9,14 +9,14 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import com.appninjas.domain.model.Event
-import com.appninjas.eventscalendartspc.R
 import com.appninjas.eventscalendartspc.databinding.FragmentAdminBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.random.Random
 
 class AdminFragment : Fragment() {
 
     private lateinit var binding: FragmentAdminBinding
-    private val viewModel: AdminViewModel by viewModels { AdminViewModel.Factory }
+    private val viewModel: AdminViewModel by viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentAdminBinding.inflate(inflater, container, false)

@@ -3,20 +3,19 @@ package com.appninjas.data.repository
 import android.content.Context
 import com.appninjas.data.mapper.EventMapper
 import com.appninjas.data.storage.EventDatabase
+import com.appninjas.data.storage.EventsDao
 import com.appninjas.domain.model.Event
 import com.appninjas.domain.repository.EventsRepository
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
 
-class EventRepositoryImpl(context: Context): EventsRepository {
-
-    private val mapper = EventMapper()
-
-    private val firebaseDb = Firebase.firestore
-
-    private val eventDatabase = EventDatabase.getDatabaseInstance(context)
-    private val eventDao = eventDatabase.getProductsDao()
+class EventRepositoryImpl(
+    private val firebaseDb: FirebaseFirestore,
+    private val eventDao: EventsDao,
+    private val mapper: EventMapper
+    ): EventsRepository {
 
     override suspend fun getEventsList(): Map<String, List<Event>> {
         val allEventsDocuments = firebaseDb.collection("events").get().await()
