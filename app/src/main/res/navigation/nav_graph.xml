@@ -39,7 +39,7 @@
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/adminFragment"
-        android:name="com.appninjas.eventscalendartspc.presentation.screens.admin.AdminFragment"
+        android:name="com.appninjas.eventscalendartspc.presentation.screens.add_event.AddEventFragment"
         android:label="fragment_admin"
-        tools:layout="@layout/fragment_admin" />
+        tools:layout="@layout/fragment_add_event" />
 </navigation>

@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_margin="15dp"
-    tools:context=".presentation.screens.admin.AdminFragment">
+    tools:context=".presentation.screens.add_event.AddEventFragment">
 
     <TextView
         android:layout_width="wrap_content"

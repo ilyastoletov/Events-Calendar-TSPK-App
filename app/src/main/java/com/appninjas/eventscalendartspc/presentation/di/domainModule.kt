@@ -39,4 +39,8 @@ val domainModule = module {
     factory {
         SaveEventToStorageUseCase(repository = get())
     }
+
+    factory {
+        SendNotificationUseCase(repository = get())
+    }
 }

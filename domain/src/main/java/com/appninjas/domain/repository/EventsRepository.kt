@@ -8,4 +8,5 @@ interface EventsRepository {
     suspend fun getEventsFromStorage(): List<Event>
     suspend fun makeEventEnded(event: Event)
     suspend fun addEvent(event: Event)
+    suspend fun sendNotification(title: String, body: String)
 }

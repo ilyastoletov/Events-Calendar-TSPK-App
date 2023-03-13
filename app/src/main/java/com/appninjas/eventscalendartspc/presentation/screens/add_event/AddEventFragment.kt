@@ -1,4 +1,4 @@
-package com.appninjas.eventscalendartspc.presentation.screens.admin
+package com.appninjas.eventscalendartspc.presentation.screens.add_event
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,19 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.viewModels
 import com.appninjas.domain.model.Event
-import com.appninjas.eventscalendartspc.databinding.FragmentAdminBinding
+import com.appninjas.eventscalendartspc.databinding.FragmentAddEventBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.random.Random
 
-class AdminFragment : Fragment() {
+class AddEventFragment : Fragment() {
 
-    private lateinit var binding: FragmentAdminBinding
-    private val viewModel: AdminViewModel by viewModel()
+    private lateinit var binding: FragmentAddEventBinding
+    private val viewModel: AddEventViewModel by viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = FragmentAdminBinding.inflate(inflater, container, false)
+        binding = FragmentAddEventBinding.inflate(inflater, container, false)
         return binding.root
     }
 

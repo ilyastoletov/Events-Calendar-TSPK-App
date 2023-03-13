@@ -1,9 +1,15 @@
 package com.appninjas.eventscalendartspc.presentation
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.graphics.Color
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
 import androidx.navigation.NavController
@@ -11,9 +17,12 @@ import androidx.navigation.findNavController
 import com.appninjas.eventscalendartspc.R
 import com.appninjas.eventscalendartspc.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener
+import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.messaging.FirebaseMessagingService
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,13 +33,23 @@ class MainActivity : AppCompatActivity() {
         val firebaseAuth = Firebase.auth
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        firebaseAuth.currentUser ?: findNavController(R.id.nav_controller_fragment).navigate(R.id.registrationFragment)
+        if (!isNetworkAvailable()) {
+            Toast.makeText(this@MainActivity, "Нет подключения к интернету, новые события не будут загружены", Toast.LENGTH_LONG).show()
+        }
+
+        FirebaseMessaging.getInstance().subscribeToTopic("xyz") // Delete with release
+        firebaseAuth.currentUser ?: run {
+            FirebaseMessaging.getInstance().subscribeToTopic("xyz")
+            findNavController(R.id.nav_controller_fragment).navigate(R.id.registrationFragment)
+        }
+
         setupUI()
     }
 
     private fun setupUI() {
         val toolbar = binding.mainFragmentToolbar
         setSupportActionBar(toolbar)
+
         val drawer = binding.drawerLayout
         val navigationView = binding.mainFragmentNavMenu
         navigationView.setNavigationItemSelectedListener(navigationChangeListener)
@@ -61,5 +80,11 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+
+    private fun isNetworkAvailable(): Boolean {
+        val connectivityManager: ConnectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val capability = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+        return capability?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) ?: false
+    }
 
 }

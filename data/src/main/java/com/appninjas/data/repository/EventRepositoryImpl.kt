@@ -1,19 +1,19 @@
 package com.appninjas.data.repository
 
-import android.content.Context
 import com.appninjas.data.mapper.EventMapper
-import com.appninjas.data.storage.EventDatabase
+import com.appninjas.data.network.ApiService
+import com.appninjas.data.network.model.Notification
+import com.appninjas.data.network.model.NotificationParams
 import com.appninjas.data.storage.EventsDao
 import com.appninjas.domain.model.Event
 import com.appninjas.domain.repository.EventsRepository
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
 
 class EventRepositoryImpl(
     private val firebaseDb: FirebaseFirestore,
     private val eventDao: EventsDao,
+    private val notificationApiService: ApiService,
     private val mapper: EventMapper
     ): EventsRepository {
 
@@ -53,6 +53,20 @@ class EventRepositoryImpl(
 
     override suspend fun addEvent(event: Event) {
         firebaseDb.collection("events").document(event.eventId.toString()).set(event)
+        sendNotification("Новое событие!", "Добавлено новое событие, не пропустите его")
+    }
+
+    override suspend fun sendNotification(title: String, body: String) {
+        val eventNotification = Notification(
+            to = "/topics/xyz",
+            notification = NotificationParams(
+                title = title,
+                body = body,
+                mutable_content = true,
+                sound = "Tri-tone"
+            )
+        )
+        notificationApiService.notifyUsers(eventNotification)
     }
 
 }

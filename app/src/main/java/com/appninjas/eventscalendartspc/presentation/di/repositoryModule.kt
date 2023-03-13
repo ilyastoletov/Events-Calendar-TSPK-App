@@ -12,7 +12,8 @@ val repositoryModule = module {
         EventRepositoryImpl(
             firebaseDb = get(),
             eventDao = get(),
-            mapper = EventMapper()
+            mapper = EventMapper(),
+            notificationApiService = get()
         )
     }
 

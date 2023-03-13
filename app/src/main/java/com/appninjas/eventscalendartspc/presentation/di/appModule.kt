@@ -1,6 +1,6 @@
 package com.appninjas.eventscalendartspc.presentation.di
 
-import com.appninjas.eventscalendartspc.presentation.screens.admin.AdminViewModel
+import com.appninjas.eventscalendartspc.presentation.screens.add_event.AddEventViewModel
 import com.appninjas.eventscalendartspc.presentation.screens.login.LoginViewModel
 import com.appninjas.eventscalendartspc.presentation.screens.main.MainViewModel
 import com.appninjas.eventscalendartspc.presentation.screens.profile.ProfileViewModel
@@ -11,7 +11,10 @@ import org.koin.dsl.module
 val appModule = module {
 
     viewModel {
-        AdminViewModel(addEventUseCase = get())
+        AddEventViewModel(
+            addEventUseCase = get(),
+            sendNotificationUseCase = get()
+        )
     }
 
     viewModel {
