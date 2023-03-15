@@ -1,5 +1,7 @@
 package com.appninjas.eventscalendartspc.presentation.di
 
+import android.content.Context
+import android.content.SharedPreferences
 import com.appninjas.data.mapper.EventMapper
 import com.appninjas.data.repository.EventRepositoryImpl
 import com.appninjas.data.repository.UserRepositoryImplementation
@@ -21,7 +23,11 @@ val repositoryModule = module {
         UserRepositoryImplementation(
             firebaseDb = get(),
             firebaseAuth = get(),
-            mapper = EventMapper()
+            mapper = EventMapper(),
+            firebaseMessaging = get(),
+            sharedPrefs = provideSharedPrefs(get())
         )
     }
 }
+
+fun provideSharedPrefs(context: Context): SharedPreferences = context.getSharedPreferences("main", Context.MODE_PRIVATE)

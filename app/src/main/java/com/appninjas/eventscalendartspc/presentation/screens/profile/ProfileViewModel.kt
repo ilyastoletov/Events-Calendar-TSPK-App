@@ -7,9 +7,7 @@ import com.appninjas.data.repository.EventRepositoryImpl
 import com.appninjas.data.repository.UserRepositoryImplementation
 import com.appninjas.domain.model.Event
 import com.appninjas.domain.model.User
-import com.appninjas.domain.usecase.GetEventsFromStorageUseCase
-import com.appninjas.domain.usecase.GetUserDataUseCase
-import com.appninjas.domain.usecase.LogoutUseCase
+import com.appninjas.domain.usecase.*
 import com.appninjas.eventscalendartspc.presentation.screens.main.MainViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,6 +15,8 @@ import kotlinx.coroutines.launch
 class ProfileViewModel(
     private val getUserDataUseCase: GetUserDataUseCase,
     private val getEventsFromStorageUseCase: GetEventsFromStorageUseCase,
+    private val notificationControlUseCase: NotificationControlUseCase,
+    private val getNotificationStateUseCase: GetNotificationStateUseCase,
     private val logoutUseCase: LogoutUseCase
     ): ViewModel() {
 
@@ -25,6 +25,9 @@ class ProfileViewModel(
 
     private val _eventsList: MutableLiveData<List<Event>> = MutableLiveData()
     val eventsList: LiveData<List<Event>> = _eventsList
+
+    private val _notifState: MutableLiveData<Boolean> = MutableLiveData()
+    val notifState: LiveData<Boolean> = _notifState
 
     fun getUserData() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -37,6 +40,19 @@ class ProfileViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             val result = getEventsFromStorageUseCase.invoke()
             _eventsList.postValue(result)
+        }
+    }
+
+    fun switchNotifications(toState: Boolean) {
+        viewModelScope.launch(Dispatchers.IO) {
+            notificationControlUseCase.invoke(toState)
+        }
+    }
+
+    fun getNotificationsState() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = getNotificationStateUseCase.invoke()
+            _notifState.postValue(result)
         }
     }
 

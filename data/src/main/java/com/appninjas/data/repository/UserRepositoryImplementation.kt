@@ -1,5 +1,6 @@
 package com.appninjas.data.repository
 
+import android.content.SharedPreferences
 import android.util.Log
 import com.appninjas.data.mapper.EventMapper
 import com.appninjas.domain.model.Event
@@ -7,11 +8,16 @@ import com.appninjas.domain.model.User
 import com.appninjas.domain.repository.UserRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.tasks.await
+
+private const val SHARED_PREFS_KEY = "notifications"
 
 class UserRepositoryImplementation(
     private val firebaseAuth: FirebaseAuth,
     private val firebaseDb: FirebaseFirestore,
+    private val firebaseMessaging: FirebaseMessaging,
+    private val sharedPrefs: SharedPreferences,
     private val mapper: EventMapper
     ): UserRepository {
 
@@ -86,5 +92,17 @@ class UserRepositoryImplementation(
             "ended" to endedEventsList
         )
     }
+
+    override suspend fun controlNotifications(toState: Boolean) {
+        if (toState) {
+            firebaseMessaging.subscribeToTopic("xyz")
+            sharedPrefs.edit().putBoolean(SHARED_PREFS_KEY, true).commit()
+        } else {
+            firebaseMessaging.unsubscribeFromTopic("xyz")
+            sharedPrefs.edit().putBoolean(SHARED_PREFS_KEY, false).commit()
+        }
+    }
+
+    override suspend fun getNotificationState(): Boolean = sharedPrefs.getBoolean(SHARED_PREFS_KEY, true)
 
 }

@@ -9,4 +9,6 @@ interface UserRepository {
     suspend fun logoutUser()
     suspend fun getUserData(): User
     suspend fun getEventsList(): Map<String, List<Event>>
+    suspend fun controlNotifications(toState: Boolean)
+    suspend fun getNotificationState(): Boolean
 }

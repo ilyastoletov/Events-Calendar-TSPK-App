@@ -1,7 +1,9 @@
 package com.appninjas.eventscalendartspc.presentation.screens.profile
 
+import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -34,6 +36,7 @@ class ProfileFragment : Fragment() {
     private fun initUI() {
         val activity: AppCompatActivity = requireActivity() as AppCompatActivity
         activity.supportActionBar?.title = "Профиль"
+
         viewModel.getUserData()
         viewModel.userData.observe(viewLifecycleOwner) {
             binding.profileNameTextView.text = "Имя и фамилия: " + it.fullName
@@ -42,9 +45,9 @@ class ProfileFragment : Fragment() {
                 false -> "Пользователь"
             }
         }
+
         viewModel.getEventsFromStorage()
         viewModel.eventsList.observe(viewLifecycleOwner) {events ->
-            println(events.size)
             binding.profileEventsTextView.text = "Посещено мероприятий: " + events.size.toString()
             val rvAdapter = EventsAdapter(eventsList = events, userAdmin = false, fromProfile = true, listener = null)
             binding.profileEventsRecyclerView.apply {
@@ -52,6 +55,16 @@ class ProfileFragment : Fragment() {
                 layoutManager = LinearLayoutManager(context)
             }
         }
+
+        viewModel.getNotificationsState()
+        viewModel.notifState.observe(viewLifecycleOwner) {
+            binding.notificationSwitch.isChecked = it
+        }
+
+        binding.notificationSwitch.setOnCheckedChangeListener { buttonView, isChecked ->
+            viewModel.switchNotifications(isChecked)
+        }
+
         binding.logoutBtn.setOnClickListener {
             logout()
         }

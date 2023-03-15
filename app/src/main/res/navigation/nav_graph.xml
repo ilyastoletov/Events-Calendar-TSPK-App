@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_mainFragment_to_adminFragment"
             app:destination="@id/adminFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_notificationFragment"
+            app:destination="@id/notificationFragment" />
     </fragment>
     <fragment
         android:id="@+id/registrationFragment"
@@ -42,4 +45,9 @@
         android:name="com.appninjas.eventscalendartspc.presentation.screens.add_event.AddEventFragment"
         android:label="fragment_admin"
         tools:layout="@layout/fragment_add_event" />
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="com.appninjas.eventscalendartspc.presentation.screens.send_notification.NotificationFragment"
+        android:label="fragment_notification"
+        tools:layout="@layout/fragment_notification" />
 </navigation>

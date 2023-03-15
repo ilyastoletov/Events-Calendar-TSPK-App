@@ -77,6 +77,10 @@ class MainActivity : AppCompatActivity() {
                     findNavController(R.id.nav_controller_fragment).navigate(R.id.adminFragment)
                     true
                 }
+                R.id.admin_send_notification -> {
+                    findNavController(R.id.nav_controller_fragment).navigate(R.id.notificationFragment)
+                    true
+                }
                 else -> false
             }
         }

@@ -10,5 +10,7 @@
             android:title="Профиль"/>
         <item android:id="@+id/admin_add_event"
             android:title="Добавить событие"/>
+        <item android:id="@+id/admin_send_notification"
+            android:title="Отправить уведомление"/>
     </group>
 </menu>

@@ -43,4 +43,12 @@ val domainModule = module {
     factory {
         SendNotificationUseCase(repository = get())
     }
+
+    factory {
+        NotificationControlUseCase(repository = get())
+    }
+
+    factory {
+        GetNotificationStateUseCase(repository = get())
+    }
 }

@@ -39,6 +39,7 @@ class MainFragment : Fragment() {
         val activity: AppCompatActivity = requireActivity() as AppCompatActivity
         activity.supportActionBar?.show()
         activity.supportActionBar?.title = "Мероприятия ТСПК"
+
         viewModel.getUserData()
         viewModel.userData.observe(viewLifecycleOwner) {user ->
             viewModel.getEventsList()
@@ -65,14 +66,17 @@ class MainFragment : Fragment() {
     private fun initializeEventsRv(isUserAdmin: Boolean, eventsMap: Map<String, List<Event>>) {
         val adapterActive = EventsAdapter(eventsMap["active"]!!, isUserAdmin, listener = onAddButtonClickListener)
         val adapterEnded = EventsAdapter(eventsMap["ended"]!!, isUserAdmin, listener = onAddButtonClickListener)
+
         binding.incomingEventsRv.apply {
             adapter = adapterActive
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
+
         binding.endedEventsRv.apply {
             adapter = adapterEnded
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
+
     }
 
     private val onAddButtonClickListener = object : EventsAdapter.EventClickListener {

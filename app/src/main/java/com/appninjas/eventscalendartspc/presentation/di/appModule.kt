@@ -5,6 +5,7 @@ import com.appninjas.eventscalendartspc.presentation.screens.login.LoginViewMode
 import com.appninjas.eventscalendartspc.presentation.screens.main.MainViewModel
 import com.appninjas.eventscalendartspc.presentation.screens.profile.ProfileViewModel
 import com.appninjas.eventscalendartspc.presentation.screens.registration.RegistrationViewModel
+import com.appninjas.eventscalendartspc.presentation.screens.send_notification.NotificationViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -34,13 +35,21 @@ val appModule = module {
         ProfileViewModel(
             getUserDataUseCase = get(),
             getEventsFromStorageUseCase = get(),
-            logoutUseCase = get()
+            logoutUseCase = get(),
+            notificationControlUseCase = get(),
+            getNotificationStateUseCase = get()
         )
     }
 
     viewModel {
         RegistrationViewModel(
             registerUserUseCase = get()
+        )
+    }
+
+    viewModel {
+        NotificationViewModel(
+            sendNotificationUseCase = get()
         )
     }
 
